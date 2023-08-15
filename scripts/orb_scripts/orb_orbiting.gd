@@ -9,7 +9,6 @@ var orbiting_time: float
 
 func enter():
 	player = get_tree().get_first_node_in_group("player")
-	orb.global_position = player.hands.global_position
 	orbiting_time = 0.0
 
 

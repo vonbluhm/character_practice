@@ -7,16 +7,16 @@ var bullet_scene: PackedScene
 
 func enter():
 	orb.collision_mask -= 1
-	orb.reparent(player.hands)
-	match orb.elemental_power:
-		0:
-			bullet_scene = preload("res://scenes/non_elem_bullet.tscn")
+	orb.reparent(player.fire_source)
 	if Input.is_action_pressed("fire"):
+		match orb.elemental_power:
+			0:
+				bullet_scene = orb.nonelem_bullet_scene
 		start_firing()
 
 
 func update(_delta):
-	if Input.is_action_just_pressed("call"):
+	if Input.is_action_pressed("call") and not Input.is_action_pressed("fire"):
 		transitioned.emit(self, "OrbInHands")
 
 
@@ -30,6 +30,7 @@ func physics_update(_delta):
 
 func exit():
 	orb.collision_mask += 1
+	orb.reparent(get_tree().get_first_node_in_group("stage"))
 
 
 func start_firing():
@@ -43,12 +44,12 @@ func start_firing():
 		firing_timer.start()
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = orb.global_position
-	bullet.direction.x = player.facing
+	bullet.direction = (orb.global_position - player.global_position).normalized()
 	get_tree().get_root().add_child(bullet)
 
 
 func _on_timeout():
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = orb.global_position
-	bullet.direction.x = player.facing
+	bullet.direction = (orb.global_position - player.global_position).normalized()
 	get_tree().get_root().add_child(bullet)

@@ -24,5 +24,6 @@ func physics_update(delta):
 		orb.velocity.y = roundi(move_toward(orb.velocity.y, direction.normalized().y * orb_speed, orb_accel))
 		orb.velocity.y += 25 * sin(5 * state_time)
 	else:
+		orb.global_position = player.hands.global_position
 		orb.velocity = Vector2.ZERO
 		transitioned.emit(self, "OrbOrbiting")

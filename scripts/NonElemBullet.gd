@@ -2,7 +2,7 @@ extends Area2D
 
 
 @export var speed: int = 300
-var direction: Vector2 = Vector2.RIGHT
+var direction: Vector2
 var distance: float = 0.0
 var threshold: int = 200
 

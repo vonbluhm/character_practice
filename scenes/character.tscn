@@ -53,3 +53,8 @@ curve = SubResource("Curve2D_fceak")
 position = Vector2(15, 0)
 rotation = 1.5708
 rotates = false
+
+[node name="FireSourceRing" type="Node2D" parent="."]
+
+[node name="FireSource" type="Node2D" parent="FireSourceRing"]
+position = Vector2(15, 0)

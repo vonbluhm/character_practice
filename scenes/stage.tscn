@@ -100,7 +100,7 @@ tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_b8xq3")
 
-[node name="Stage" type="Node2D"]
+[node name="Stage" type="Node2D" groups=["stage"]]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_n2th2")
