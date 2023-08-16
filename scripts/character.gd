@@ -13,6 +13,8 @@ var orbiting = false
 var orbiting_speed = 0.2
 @export var facing = Facing.RIGHT
 @onready var hands: PathFollow2D = $Path2D/PathFollow2D
+@onready var collision_shape_regular = $CollisionShape
+@onready var collision_shape_expanded = $EncasedCollisionShape
 @onready var orb: CharacterBody2D = get_node("../Orb")
 @onready var fire_source_ring: Node2D = $FireSourceRing
 @onready var fire_source: Node2D = $FireSourceRing/FireSource
@@ -25,7 +27,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	if not (Input.is_action_pressed("call")):
+	if not is_movement_halted():
 		velocity = get_linear_velocity()
 	else:
 		velocity.x = 0
@@ -89,4 +91,7 @@ func orient_fire_source():
 		else:
 			fire_source_ring.rotation = fire_source_ring.rotation + TAU
 	fire_source_ring.rotation = move_toward(fire_source_ring.rotation, target_angle, angular)
-	
+
+
+func is_movement_halted():
+	return Input.is_action_pressed("call") or orb.FSM.current_state.name == "OrbHugged" or orb.FSM.current_state.name == "OrbRC"

@@ -6,8 +6,10 @@ class_name OrbIntoHands
 @export var orb_accel: int = 50
 
 
+
 func enter():
 	player = get_tree().get_first_node_in_group("player")
+	orb.energy_change_rate = 5
 
 
 func exit():

@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cqlk67afqkh0n"]
+[gd_scene load_steps=17 format=3 uid="uid://cqlk67afqkh0n"]
 
 [ext_resource type="Script" path="res://scripts/orb.gd" id="1_3n0ny"]
 [ext_resource type="Texture2D" uid="uid://b7fqgjj61bue3" path="res://orb_idle.png" id="2_wlhxu"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_fsm.gd" id="3_clecv"]
+[ext_resource type="Texture2D" uid="uid://bad2cl2glo0te" path="res://orb_encase.png" id="3_tigsx"]
 [ext_resource type="Texture2D" uid="uid://ciyxuk6576pdm" path="res://radial_element_normal.png" id="3_x23px"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_coming_back.gd" id="4_ba7af"]
 [ext_resource type="Texture2D" uid="uid://c1wjoshxe0qq" path="res://radial_elemnt_hover.png" id="4_jqyif"]
@@ -10,7 +11,9 @@
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_into_hands.gd" id="6_ctjo4"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_in_hands.gd" id="7_ybmvb"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_held.gd" id="8_essj1"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/orb_expanded.gd" id="11_edvbk"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_hugged.gd" id="11_se0va"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/orb_rc.gd" id="13_jsftn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nvj7l"]
 animations = [{
@@ -20,6 +23,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tigsx")
+}],
+"loop": true,
+"name": &"expanded",
 "speed": 5.0
 }]
 
@@ -36,11 +47,13 @@ script = ExtResource("1_3n0ny")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_nvj7l")
+animation = &"expanded"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7ja3v")
 
 [node name="RadialMenu" type="Control" parent="."]
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
@@ -182,10 +195,14 @@ orb = NodePath("../..")
 script = ExtResource("8_essj1")
 orb = NodePath("../..")
 
-[node name="OrbHugged" type="Node" parent="FSM"]
-script = ExtResource("11_se0va")
+[node name="OrbExpanded" type="Node" parent="FSM" node_paths=PackedStringArray("orb")]
+script = ExtResource("11_edvbk")
+orb = NodePath("../..")
 
-[connection signal="pressed" from="RadialMenu/TextureButton" to="FSM/OrbInHands" method="_on_texture_button_pressed"]
-[connection signal="pressed" from="RadialMenu/TextureButton2" to="FSM/OrbInHands" method="_on_texture_button_2_pressed"]
-[connection signal="pressed" from="RadialMenu/TextureButton3" to="FSM/OrbInHands" method="_on_texture_button_3_pressed"]
-[connection signal="pressed" from="RadialMenu/TextureButton4" to="FSM/OrbInHands" method="_on_texture_button_4_pressed"]
+[node name="OrbRC" type="Node" parent="FSM" node_paths=PackedStringArray("orb")]
+script = ExtResource("13_jsftn")
+orb = NodePath("../..")
+
+[node name="OrbHugged" type="Node" parent="FSM" node_paths=PackedStringArray("orb")]
+script = ExtResource("11_se0va")
+orb = NodePath("../..")

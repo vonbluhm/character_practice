@@ -1,18 +1,16 @@
 extends OrbState
 class_name OrbHugged
 
-var recharge_rate: int = 50
-
 
 func enter():
-	orb.self_modulate = Color(1.5, 1, 1, 1)
+	orb.energy_change_rate = 50
+	orb.modulate = Color(1.5, 0.5, 0.5, 1)
 
 
 func exit():
-	orb.self_modulate = Color(1, 1, 1, 1)
+	orb.modulate = Color(1, 1, 1, 1)
 
 
-func update(delta):
-	orb.energy += recharge_rate * delta
+func update(_delta):
 	if orb.energy >= orb.max_energy:
 		transitioned.emit(self, "OrbOrbiting")

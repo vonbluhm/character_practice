@@ -7,12 +7,13 @@ var state_time: float
 
 
 func enter():
+	orb.energy_change_rate = 5
 	player = get_tree().get_first_node_in_group("player")
 	state_time = 0.0
 
 
 func update(_delta):
-	if Input.is_action_just_pressed("call") or Input.is_action_just_pressed("fire"):
+	if Input.is_action_pressed("call") or Input.is_action_pressed("fire"):
 		transitioned.emit(self, "OrbIntoHands")
 
 

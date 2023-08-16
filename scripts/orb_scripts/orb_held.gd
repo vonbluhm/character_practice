@@ -6,6 +6,7 @@ var bullet_scene: PackedScene
 
 
 func enter():
+	orb.energy_change_rate = 5
 	orb.collision_mask -= 1
 	orb.reparent(player.fire_source)
 	if Input.is_action_pressed("fire"):

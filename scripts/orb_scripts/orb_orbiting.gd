@@ -8,6 +8,7 @@ var orbiting_time: float
 
 
 func enter():
+	orb.energy_change_rate = 5
 	player = get_tree().get_first_node_in_group("player")
 	orbiting_time = 0.0
 
