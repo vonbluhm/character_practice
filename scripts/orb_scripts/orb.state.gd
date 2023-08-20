@@ -5,6 +5,7 @@ class_name OrbState
 @onready var stage: Node2D = get_tree().get_first_node_in_group("stage")
 @export var orb: CharacterBody2D
 
+
 func enter():
 	pass
 

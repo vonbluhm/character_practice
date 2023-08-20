@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqo7pprrdbpe5"]
+
+[ext_resource type="Script" path="res://scripts/FireSourceRing.gd" id="1_rn5dd"]
+
+[node name="FireSourceRing" type="Node2D"]
+script = ExtResource("1_rn5dd")
+
+[node name="FireSource" type="Node2D" parent="."]
+position = Vector2(15, 0)

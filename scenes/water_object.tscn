@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmcqneuav4k1p"]
+
+[ext_resource type="Script" path="res://scripts/elemental_object.gd" id="1_4uetu"]
+[ext_resource type="Texture2D" uid="uid://b5kkfvjmyn0xl" path="res://water_object.png" id="1_vgwhe"]
+[ext_resource type="Texture2D" uid="uid://4v3cd0wgr5pg" path="res://air_object.png" id="2_k6yws"]
+[ext_resource type="Texture2D" uid="uid://nvyasemu0dno" path="res://crystal_object.png" id="3_605gn"]
+[ext_resource type="Texture2D" uid="uid://c50gswhsyvaj0" path="res://fire_object.png" id="4_v77tm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u3xhm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_k6yws")
+}],
+"loop": true,
+"name": &"air",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_605gn")
+}],
+"loop": true,
+"name": &"crystal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_v77tm")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vgwhe")
+}],
+"loop": true,
+"name": &"water",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s8ice"]
+size = Vector2(106.773, 106.773)
+
+[node name="ElementalObject" type="Area2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_4uetu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_u3xhm")
+animation = &"fire"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.785398
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_s8ice")

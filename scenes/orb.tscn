@@ -1,25 +1,39 @@
-[gd_scene load_steps=17 format=3 uid="uid://cqlk67afqkh0n"]
+[gd_scene load_steps=33 format=3 uid="uid://cqlk67afqkh0n"]
 
 [ext_resource type="Script" path="res://scripts/orb.gd" id="1_3n0ny"]
-[ext_resource type="Texture2D" uid="uid://b7fqgjj61bue3" path="res://orb_idle.png" id="2_wlhxu"]
-[ext_resource type="Script" path="res://scripts/orb_scripts/orb_fsm.gd" id="3_clecv"]
-[ext_resource type="Texture2D" uid="uid://bad2cl2glo0te" path="res://orb_encase.png" id="3_tigsx"]
+[ext_resource type="Texture2D" uid="uid://b55raupurhtcy" path="res://regular_nonelem.png" id="2_5hmbr"]
+[ext_resource type="Texture2D" uid="uid://c1y40sm7netx7" path="res://regular_air.png" id="3_2lkbf"]
 [ext_resource type="Texture2D" uid="uid://ciyxuk6576pdm" path="res://radial_element_normal.png" id="3_x23px"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_coming_back.gd" id="4_ba7af"]
+[ext_resource type="Texture2D" uid="uid://ojfvu5nxjt4w" path="res://regular_crystal.png" id="4_e0x8t"]
 [ext_resource type="Texture2D" uid="uid://c1wjoshxe0qq" path="res://radial_elemnt_hover.png" id="4_jqyif"]
+[ext_resource type="Texture2D" uid="uid://lwprwdk6gged" path="res://regular_fire.png" id="5_2ecuh"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_orbiting.gd" id="5_bt6np"]
+[ext_resource type="Texture2D" uid="uid://4ioyst2om2r5" path="res://regular_water.png" id="6_50psp"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_into_hands.gd" id="6_ctjo4"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_in_hands.gd" id="7_ybmvb"]
+[ext_resource type="Texture2D" uid="uid://c5jrukbiglbtf" path="res://expanded_nonelem.png" id="7_yy7wu"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_held.gd" id="8_essj1"]
+[ext_resource type="Texture2D" uid="uid://dx05xwe1d2ohu" path="res://expanded_air.png" id="8_ytucg"]
+[ext_resource type="Texture2D" uid="uid://b1qgo4qy6l7r7" path="res://expanded_crystal.png" id="9_x8h7r"]
+[ext_resource type="Texture2D" uid="uid://c163i6sxuujdt" path="res://expanded_fire.png" id="10_coaqs"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_expanded.gd" id="11_edvbk"]
+[ext_resource type="Texture2D" uid="uid://dw0xy5osvtx02" path="res://expanded_water.png" id="11_pc4yy"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_hugged.gd" id="11_se0va"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/orb_rc.gd" id="13_jsftn"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/elements_fsm.gd" id="14_mrm75"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/element_none.gd" id="15_q2n1s"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/element_water.gd" id="16_nkaun"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/element_air.gd" id="17_eip6x"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/element_crystal.gd" id="18_dgyq5"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/element_fire.gd" id="19_10dvh"]
+[ext_resource type="PackedScene" uid="uid://bqo7pprrdbpe5" path="res://scenes/fire_source_ring.tscn" id="28_fnawg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nvj7l"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_wlhxu")
+"texture": ExtResource("2_5hmbr")
 }],
 "loop": true,
 "name": &"default",
@@ -27,29 +41,155 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_tigsx")
+"texture": ExtResource("3_2lkbf")
+}],
+"loop": true,
+"name": &"default_air",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_e0x8t")
+}],
+"loop": true,
+"name": &"default_crystal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_2ecuh")
+}],
+"loop": true,
+"name": &"default_fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_50psp")
+}],
+"loop": true,
+"name": &"default_water",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_yy7wu")
 }],
 "loop": true,
 "name": &"expanded",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ytucg")
+}],
+"loop": true,
+"name": &"expanded_air",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_x8h7r")
+}],
+"loop": true,
+"name": &"expanded_crystal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_coaqs")
+}],
+"loop": true,
+"name": &"expanded_fire",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_pc4yy")
+}],
+"loop": true,
+"name": &"expanded_water",
 "speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ja3v"]
 radius = 12.0
 
-[node name="Orb" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_aqmg6"]
+radius = 32.0
+
+[sub_resource type="GDScript" id="GDScript_jonhu"]
+script/source = "extends Node
+
+@export var initial_state: State
+
+var current_state: State
+var states: Dictionary = {}
+
+
+func _ready():
+	for child in get_children():
+		if child is State:
+			states[child.name.to_lower()] = child
+			child.transitioned.connect(_on_child_transition)
+	if initial_state:
+		initial_state.enter()
+		current_state = initial_state
+
+
+func _process(delta):
+	if current_state:
+		current_state.update(delta)
+
+
+func _physics_process(delta):
+	if current_state:
+		current_state.physics_update(delta)
+
+
+func _on_child_transition(state, new_state_name):
+	if state != current_state:
+		return
+	var new_state = states.get(new_state_name.to_lower())
+	if !new_state:
+		return
+	if current_state:
+		current_state.exit()
+	new_state.enter()
+	current_state = new_state
+"
+
+[node name="Orb" type="CharacterBody2D" groups=["orb"]]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 17
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_3n0ny")
 
+[node name="FireSourceRing" parent="." instance=ExtResource("28_fnawg")]
+radius = 30.0
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_nvj7l")
-animation = &"expanded"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_7ja3v")
+
+[node name="ExpandedColllisionShape" type="CollisionShape2D" parent="HurtBox"]
+visible = false
+shape = SubResource("CircleShape2D_aqmg6")
+disabled = true
+
+[node name="MainShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7ja3v")
 
 [node name="RadialMenu" type="Control" parent="."]
@@ -172,7 +312,7 @@ texture_pressed = ExtResource("4_jqyif")
 texture_focused = ExtResource("4_jqyif")
 
 [node name="FSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_clecv")
+script = SubResource("GDScript_jonhu")
 initial_state = NodePath("OrbComingBack")
 
 [node name="OrbComingBack" type="Node" parent="FSM" node_paths=PackedStringArray("orb")]
@@ -206,3 +346,37 @@ orb = NodePath("../..")
 [node name="OrbHugged" type="Node" parent="FSM" node_paths=PackedStringArray("orb")]
 script = ExtResource("11_se0va")
 orb = NodePath("../..")
+
+[node name="ElementsFSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("14_mrm75")
+initial_state = NodePath("ElementNone")
+
+[node name="ElementNone" type="Node" parent="ElementsFSM" node_paths=PackedStringArray("orb")]
+script = ExtResource("15_q2n1s")
+orb = NodePath("../..")
+
+[node name="ElementWater" type="Node" parent="ElementsFSM" node_paths=PackedStringArray("orb")]
+script = ExtResource("16_nkaun")
+orb = NodePath("../..")
+
+[node name="ElementAir" type="Node" parent="ElementsFSM" node_paths=PackedStringArray("orb")]
+script = ExtResource("17_eip6x")
+orb = NodePath("../..")
+
+[node name="ElementCrystal" type="Node" parent="ElementsFSM" node_paths=PackedStringArray("orb")]
+script = ExtResource("18_dgyq5")
+orb = NodePath("../..")
+
+[node name="ElementFire" type="Node" parent="ElementsFSM" node_paths=PackedStringArray("orb")]
+script = ExtResource("19_10dvh")
+orb = NodePath("../..")
+
+[connection signal="area_entered" from="HurtBox" to="ElementsFSM/ElementNone" method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="ElementsFSM/ElementWater" method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="ElementsFSM/ElementAir" method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="ElementsFSM/ElementCrystal" method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="ElementsFSM/ElementFire" method="_on_hurt_box_area_entered"]
+[connection signal="area_exited" from="HurtBox" to="ElementsFSM/ElementWater" method="_on_hurt_box_area_exited"]
+[connection signal="area_exited" from="HurtBox" to="ElementsFSM/ElementAir" method="_on_hurt_box_area_exited"]
+[connection signal="area_exited" from="HurtBox" to="ElementsFSM/ElementCrystal" method="_on_hurt_box_area_exited"]
+[connection signal="area_exited" from="HurtBox" to="ElementsFSM/ElementFire" method="_on_hurt_box_area_exited"]

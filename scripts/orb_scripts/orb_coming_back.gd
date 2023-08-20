@@ -20,7 +20,7 @@ func update(_delta):
 func physics_update(delta):
 	state_time += delta
 	var direction: Vector2 = (player.hands.global_position - orb.global_position)
-	if direction.length() >= 2:
+	if direction.length() >= 5:
 		orb.velocity.x = roundi(move_toward(orb.velocity.x, direction.normalized().x * orb_speed, orb_accel))
 		orb.velocity.y = roundi(move_toward(orb.velocity.y, direction.normalized().y * orb_speed, orb_accel))
 		orb.velocity.y += 25 * sin(5 * state_time)

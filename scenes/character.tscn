@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvw278arh5eig"]
+[gd_scene load_steps=11 format=3 uid="uid://c7pk0j6eflq4a"]
 
-[ext_resource type="Script" path="res://scripts/character.gd" id="1_xj2sk"]
+[ext_resource type="Script" path="res://scripts/player_scripts/character.gd" id="1_7dias"]
 [ext_resource type="Texture2D" uid="uid://crorambewtvk3" path="res://icon.svg" id="2_7o8mo"]
+[ext_resource type="PackedScene" uid="uid://bqo7pprrdbpe5" path="res://scenes/fire_source_ring.tscn" id="3_exhdb"]
+[ext_resource type="Script" path="res://scripts/player_scripts/player_fsm.gd" id="4_0483a"]
+[ext_resource type="Script" path="res://scripts/player_scripts/player_default.gd" id="5_21ber"]
+[ext_resource type="Script" path="res://scripts/player_scripts/player_bouncing.gd" id="6_wm10d"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_crcrc"]
 animations = [{
@@ -22,18 +26,22 @@ radius = 30.0
 
 [sub_resource type="Curve2D" id="Curve2D_fceak"]
 _data = {
-"points": PackedVector2Array(0.00996494, -5.33772, 0, 5, 15, 0, 5, 0, 0, 5, 0, 10, -5, 0, 0, -5, -15, 0, -5, 0, 0, -5, 0, -10, 5, 0, 0, 0, 15, 0)
+"points": PackedVector2Array(0.00996494, -5.33772, 0, 5, 15, 0, 5, 0, 0, 5, 0, 10, 0, 5, 0, -5, -15, 0, -5, 0, 0, -5, 0, -10, 5, 0, 0, 0, 15, 0)
 }
 point_count = 5
 
-[node name="Character" type="CharacterBody2D"]
+[node name="Character" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
-script = ExtResource("1_xj2sk")
+script = ExtResource("1_7dias")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3.8743e-07, 0)
 scale = Vector2(0.15625, 0.46875)
 sprite_frames = SubResource("SpriteFrames_crcrc")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_v6bfm")
@@ -43,9 +51,6 @@ visible = false
 shape = SubResource("CircleShape2D_rr2gh")
 disabled = true
 
-[node name="HandPosition" type="Marker2D" parent="."]
-position = Vector2(15, 0)
-
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_fceak")
 
@@ -54,7 +59,26 @@ position = Vector2(15, 0)
 rotation = 1.5708
 rotates = false
 
-[node name="FireSourceRing" type="Node2D" parent="."]
+[node name="HandPosition" type="Marker2D" parent="Path2D/PathFollow2D"]
+rotation = -1.5708
 
-[node name="FireSource" type="Node2D" parent="FireSourceRing"]
-position = Vector2(15, 0)
+[node name="FireSourceRing" parent="." instance=ExtResource("3_exhdb")]
+radius = 15.0
+
+[node name="JumpHoldTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_0483a")
+initial_state = NodePath("PlayerDefault")
+
+[node name="PlayerDefault" type="Node" parent="FSM"]
+script = ExtResource("5_21ber")
+
+[node name="PlayerBouncing" type="Node" parent="FSM"]
+script = ExtResource("6_wm10d")

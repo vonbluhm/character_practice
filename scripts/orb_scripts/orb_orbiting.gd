@@ -23,6 +23,6 @@ func physics_update(delta):
 	var direction: Vector2 = (player.hands.global_position - orb.global_position)
 	orb.velocity.x = roundi(move_toward(orb.velocity.x, direction.normalized().x * orb_speed, orb_accel))
 	orb.velocity.y = roundi(move_toward(orb.velocity.y, direction.normalized().y * orb_speed + 4 * sin(orbiting_time), orb_accel))
-	
+
 	if direction.length() > 30:
 		transitioned.emit(self, "OrbComingBack")

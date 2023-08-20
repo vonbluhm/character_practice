@@ -1,0 +1,15 @@
+extends ElementState
+class_name ElementNone
+
+
+var recharge_rate: int = 100
+
+
+func enter():
+	orb.elemental_energy = 0
+
+
+func _on_hurt_box_area_entered(area):
+	get_parent().element_change(area, self)
+	orb.elem_energy_change_rate = recharge_rate
+	

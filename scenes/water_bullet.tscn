@@ -1,41 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://cusaoqk5ojh8m"]
+[gd_scene load_steps=5 format=3 uid="uid://b4eu3xhs1kbet"]
 
-[ext_resource type="Script" path="res://scripts/NonElemBullet.gd" id="1_oixnq"]
-[ext_resource type="Texture2D" uid="uid://cgxbs24hq5ykt" path="res://bullet_non_elem.svg" id="2_micsw"]
+[ext_resource type="Script" path="res://scripts/water_bullet.gd" id="1_hm0yo"]
+[ext_resource type="Texture2D" uid="uid://db3v47rfjl2ya" path="res://water_bullet.svg" id="2_6tm0o"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_m447y"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_b71rw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_micsw")
+"texture": ExtResource("2_6tm0o")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4gidt"]
-radius = 4.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_2v4qf"]
 
-[node name="NonElemBullet" type="Area2D"]
+[node name="WaterBullet" type="Area2D"]
 collision_layer = 8
-script = ExtResource("1_oixnq")
+script = ExtResource("1_hm0yo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_m447y")
+sprite_frames = SubResource("SpriteFrames_b71rw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_4gidt")
+shape = SubResource("CircleShape2D_2v4qf")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(0, 2.38419e-07)
-scale = Vector2(0.5, 0.5)
+position = Vector2(7.15256e-07, -4.76837e-07)
+scale = Vector2(1.1, 1.1)
 
 [node name="OffScreenTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="OffScreenTimer" to="." method="_on_off_screen_timer_timeout"]

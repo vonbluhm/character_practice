@@ -2,10 +2,14 @@ extends OrbState
 class_name OrbInHands
 
 
+var input_buffer_timer: Timer
+var effective_vector: Vector2 = Vector2.ZERO
+
+
 func enter():
 	orb.energy_change_rate = 10
 	player = get_tree().get_first_node_in_group("player")
-	orb.global_position = player.fire_source.global_position
+	orb.global_position = player.fire_source_ring.source.global_position
 	orb.velocity = Vector2.ZERO
 	if Input.is_action_pressed("call"):
 		reveal_menu()
@@ -17,23 +21,34 @@ func update(_delta):
 	if Input.is_action_pressed("fire"):
 		transitioned.emit(self, "OrbHeld")
 	
-	
 	var input_vector = Input.get_vector("move_left", "move_right", "aim_up", "aim_down")
-	if input_vector.x != 0:
-		if input_vector.x < 0:
+	if input_vector != Vector2.ZERO:
+		effective_vector = input_vector
+		if input_buffer_timer:
+			input_buffer_timer.start()
+	elif !input_buffer_timer:
+		input_buffer_timer = Timer.new()
+		input_buffer_timer.wait_time = 0.2
+		input_buffer_timer.autostart = true
+		input_buffer_timer.one_shot = true
+		input_buffer_timer.timeout.connect(_on_timeout)
+		add_child(input_buffer_timer)
+		
+	if effective_vector.x != 0:
+		if effective_vector.x < 0:
 			orb.menu_buttons[1].grab_focus()
 			if Input.is_action_just_released("call"):
 				transitioned.emit(self, "OrbExpanded")
-		elif input_vector.x > 0:
+		elif effective_vector.x > 0:
 			orb.menu_buttons[3].grab_focus()
 			if Input.is_action_just_released("call"):
 				transitioned.emit(self, "OrbRC")
-	elif input_vector.y != 0:
-		if input_vector.y < 0:
+	elif effective_vector.y != 0:
+		if effective_vector.y < 0:
 			orb.menu_buttons[2].grab_focus()
 			if Input.is_action_just_released("call"):
 				transitioned.emit(self, "OrbOrbiting")
-		elif input_vector.y > 0:
+		elif effective_vector.y > 0:
 			orb.menu_buttons[4].grab_focus()
 			if Input.is_action_just_released("call"):
 				transitioned.emit(self, "OrbHugged")
@@ -45,10 +60,15 @@ func update(_delta):
 		
 func exit():
 	orb.menu.hide()
-	print(orb.FSM.current_state)
 
 
 func reveal_menu():
+	orb.rotation = 0
 	orb.menu.rotation = 0
 	orb.menu.show()
 	orb.menu_buttons[0].grab_focus()
+
+
+func _on_timeout():
+	effective_vector = Vector2.ZERO
+	input_buffer_timer.stop()
