@@ -20,6 +20,9 @@ var max_elemental_energy: int = 200
 var elem_energy_change_rate: int = -10
 @onready var nonelem_bullet_scene: PackedScene = preload("res://scenes/non_elem_bullet.tscn")
 @onready var water_bullet_scene: PackedScene = preload("res://scenes/water_bullet.tscn")
+@onready var fire_bullet_scene: PackedScene = preload("res://scenes/fire_bullet.tscn")
+@onready var air_bullet_scene: PackedScene = preload("res://scenes/air_bullet.tscn")
+@onready var beam_scene: PackedScene = preload("res://scenes/beam.tscn")
 
 
 func _ready():

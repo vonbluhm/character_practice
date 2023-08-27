@@ -9,13 +9,15 @@ var effective_vector: Vector2 = Vector2.ZERO
 func enter():
 	orb.energy_change_rate = 10
 	player = get_tree().get_first_node_in_group("player")
-	orb.global_position = player.fire_source_ring.source.global_position
+	orb.global_position = player.hands.global_position
 	orb.velocity = Vector2.ZERO
+	player.hands.progress_ratio = 0.25 * (1 - player.facing)
 	if Input.is_action_pressed("call"):
 		reveal_menu()
 
 
 func update(_delta):
+	orb.global_position = player.hands.global_position
 	if Input.is_action_just_pressed("call"):
 		reveal_menu()
 	if Input.is_action_pressed("fire"):

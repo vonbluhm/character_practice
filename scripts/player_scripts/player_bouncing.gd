@@ -39,3 +39,7 @@ func physics_update(_delta):
 		out.y = player.apply_gravity(out)
 	
 	player.velocity = out
+
+
+func _on_jump_hold_timer_timeout():
+	transitioned.emit(self, "PlayerDefault")

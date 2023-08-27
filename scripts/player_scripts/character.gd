@@ -19,6 +19,7 @@ var orbiting_speed = 0.2
 @onready var fire_source_ring: Node2D = $FireSourceRing
 @onready var jump_hold_timer: Timer = $JumpHoldTimer
 var was_jump_pressed = true
+var was_double_jump_pressed = true
 var can_jump_after_walking_off = false
 
 
@@ -29,7 +30,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	$Label.text = str(velocity)
+	$Label.text = str(velocity) + "\n" + str(FSM.current_state.name)
 	move_and_slide()
 	
 
@@ -62,6 +63,7 @@ func is_on_ground():
 		out = is_on_floor() or not $CoyoteTimer.is_stopped()
 	if was_jump_pressed and is_on_floor():
 		was_jump_pressed = false
+		was_double_jump_pressed = false
 		can_jump_after_walking_off = true
 	return out
 

@@ -13,7 +13,7 @@ func enter():
 func _on_hurt_box_area_entered(area):
 	if area.is_in_group("water_bodies"):
 		transitioned.emit(self, "ElementNone")
-	else:
+	elif area.is_in_group("elemental_objects"):
 		get_parent().element_change(area, self)
 		orb.elem_energy_change_rate = recharge_rate
 

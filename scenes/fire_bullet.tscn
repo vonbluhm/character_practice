@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw16ryedn1eu7"]
+
+[ext_resource type="Script" path="res://scripts/fire_bullet.gd" id="1_vjid6"]
+[ext_resource type="Texture2D" uid="uid://bihcd1xxhvkq6" path="res://fire_bullet.png" id="2_yr68s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_81ymj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yr68s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hjk8c"]
+radius = 50.0
+
+[node name="FireBullet" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_vjid6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_81ymj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hjk8c")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="OffScreenTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="OffScreenTimer" to="." method="_on_off_screen_timer_timeout"]

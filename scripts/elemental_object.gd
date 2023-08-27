@@ -10,7 +10,7 @@ enum Element{
 @onready var sprite = $AnimatedSprite2D
 
 func _ready():
-	add_to_group("element_objects")
+	add_to_group("elemental_objects")
 	match element:
 		Element.WATER:
 			sprite.play("water")

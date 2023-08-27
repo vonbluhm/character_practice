@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7pk0j6eflq4a"]
+[gd_scene load_steps=13 format=3 uid="uid://c7pk0j6eflq4a"]
 
 [ext_resource type="Script" path="res://scripts/player_scripts/character.gd" id="1_7dias"]
 [ext_resource type="Texture2D" uid="uid://crorambewtvk3" path="res://icon.svg" id="2_7o8mo"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/player_scripts/player_fsm.gd" id="4_0483a"]
 [ext_resource type="Script" path="res://scripts/player_scripts/player_default.gd" id="5_21ber"]
 [ext_resource type="Script" path="res://scripts/player_scripts/player_bouncing.gd" id="6_wm10d"]
+[ext_resource type="Script" path="res://scripts/player_scripts/player_flying.gd" id="7_gjk4c"]
+[ext_resource type="Script" path="res://scripts/player_scripts/player_rolling.gd" id="8_6iai6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_crcrc"]
 animations = [{
@@ -82,3 +84,11 @@ script = ExtResource("5_21ber")
 
 [node name="PlayerBouncing" type="Node" parent="FSM"]
 script = ExtResource("6_wm10d")
+
+[node name="PlayerFlying" type="Node" parent="FSM"]
+script = ExtResource("7_gjk4c")
+
+[node name="PlayerRolling" type="Node" parent="FSM"]
+script = ExtResource("8_6iai6")
+
+[connection signal="timeout" from="JumpHoldTimer" to="FSM/PlayerBouncing" method="_on_jump_hold_timer_timeout"]
