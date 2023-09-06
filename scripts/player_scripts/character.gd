@@ -49,7 +49,7 @@ func apply_gravity(out: Vector2i):
 
 
 func is_movement_halted():
-	return Input.is_action_pressed("call") or orb.FSM.current_state.name == "OrbHugged" or orb.FSM.current_state.name == "OrbRC"
+	return Input.is_action_pressed("call") or orb.FSM.current_state.name == "OrbHugged" or orb.FSM.current_state.name == "OrbInHands"
 
 
 func is_on_ground():

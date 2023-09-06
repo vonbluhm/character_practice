@@ -44,7 +44,17 @@ func update(_delta):
 		elif effective_vector.x > 0:
 			orb.menu_buttons[3].grab_focus()
 			if Input.is_action_just_released("call"):
-				transitioned.emit(self, "OrbRC")
+				match orb.elem_FSM.current_state.name:
+					"ElementNone":
+						transitioned.emit(self, "OrbRC")
+					"ElementWater":
+						transitioned.emit(self, "OrbThrownWater")
+					"ElementAir":
+						transitioned.emit(self, "OrbThrownAir")
+					"ElementCrystal":
+						transitioned.emit(self, "OrbThrownCrystal")
+					"ElementFire":
+						transitioned.emit(self, "OrbThrownFire")
 	elif effective_vector.y != 0:
 		if effective_vector.y < 0:
 			orb.menu_buttons[2].grab_focus()

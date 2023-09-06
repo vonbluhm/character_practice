@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cqlk67afqkh0n"]
+[gd_scene load_steps=37 format=3 uid="uid://cqlk67afqkh0n"]
 
 [ext_resource type="Script" path="res://scripts/orb.gd" id="1_3n0ny"]
 [ext_resource type="Texture2D" uid="uid://b55raupurhtcy" path="res://regular_nonelem.png" id="2_5hmbr"]
@@ -27,6 +27,10 @@
 [ext_resource type="Script" path="res://scripts/orb_scripts/element_air.gd" id="17_eip6x"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/element_crystal.gd" id="18_dgyq5"]
 [ext_resource type="Script" path="res://scripts/orb_scripts/element_fire.gd" id="19_10dvh"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/orb_thrown_water.gd" id="23_pq5wv"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/orb_thrown_air.gd" id="24_44tws"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/orb_thrown_crystal.gd" id="25_3kyt3"]
+[ext_resource type="Script" path="res://scripts/orb_scripts/orb_thrown_fire.gd" id="26_0fa68"]
 [ext_resource type="PackedScene" uid="uid://bqo7pprrdbpe5" path="res://scenes/fire_source_ring.tscn" id="28_fnawg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nvj7l"]
@@ -327,9 +331,8 @@ orb = NodePath("../..")
 script = ExtResource("6_ctjo4")
 orb = NodePath("../..")
 
-[node name="OrbInHands" type="Node" parent="FSM" node_paths=PackedStringArray("orb")]
+[node name="OrbInHands" type="Node" parent="FSM"]
 script = ExtResource("7_ybmvb")
-orb = NodePath("../..")
 
 [node name="OrbHeld" type="Node" parent="FSM" node_paths=PackedStringArray("orb")]
 script = ExtResource("8_essj1")
@@ -346,6 +349,18 @@ orb = NodePath("../..")
 [node name="OrbHugged" type="Node" parent="FSM" node_paths=PackedStringArray("orb")]
 script = ExtResource("11_se0va")
 orb = NodePath("../..")
+
+[node name="OrbThrownWater" type="Node" parent="FSM"]
+script = ExtResource("23_pq5wv")
+
+[node name="OrbThrownAir" type="Node" parent="FSM"]
+script = ExtResource("24_44tws")
+
+[node name="OrbThrownCrystal" type="Node" parent="FSM"]
+script = ExtResource("25_3kyt3")
+
+[node name="OrbThrownFire" type="Node" parent="FSM"]
+script = ExtResource("26_0fa68")
 
 [node name="ElementsFSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("14_mrm75")
